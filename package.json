@@ -1,0 +1,89 @@
+{
+  "name": "format-selection-as-html",
+  "displayName": "Format Selection As HTML",
+  "description": "Format selected text as HTML using Prettier. Useful for code embedded in strings or templating languages without formatting support (like Razor).",
+  "icon": "img/icon.png",
+  "publisher": "adrianwilczynski",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AdrianWilczynski/FormatSelectionAsHtml.git"
+  },
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.34.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "Format",
+    "Formatting",
+    "Selection",
+    "HTML",
+    "Template",
+    "Inline",
+    "Literals",
+    "Prettier"
+  ],
+  "activationEvents": [
+    "onCommand:extension.formatSelectionAsHtml"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.formatSelectionAsHtml",
+        "title": "Format Selection As HTML"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "extension.formatSelectionAsHtml",
+          "group": "1_modification@2",
+          "when": "editorHasSelection"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "extension.formatSelectionAsHtml",
+          "when": "editorHasSelection"
+        }
+      ]
+    },
+    "configuration": [
+      {
+        "title": "Format Selection As HTML",
+        "properties": {
+          "formatSelectionAsHtml.htmlWhitespaceSensitivity": {
+            "type": "string",
+            "enum": [
+              "css",
+              "strict",
+              "ignore"
+            ],
+            "default": "ignore"
+          }
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "npm run compile && node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "typescript": "^3.3.1",
+    "vscode": "^1.1.28",
+    "tslint": "^5.12.1",
+    "@types/node": "^10.12.21",
+    "@types/mocha": "^2.2.42"
+  },
+  "dependencies": {
+    "@types/prettier": "^1.16.4",
+    "prettier": "^1.17.1"
+  }
+}
