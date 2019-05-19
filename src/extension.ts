@@ -16,14 +16,11 @@ async function formatSelectionAsHTML() {
     .getConfiguration()
     .get("formatSelectionAsHtml.htmlWhitespaceSensitivity");
 
-  if (!htmlWhitespaceSensitivity ||
-    typeof htmlWhitespaceSensitivity !== "string" ||
-    !(
-      htmlWhitespaceSensitivity === "css" ||
-      htmlWhitespaceSensitivity === "strict" ||
-      htmlWhitespaceSensitivity === "ignore"
-    )
-  ) {
+  if (!htmlWhitespaceSensitivity
+    || typeof htmlWhitespaceSensitivity !== "string"
+    || !(htmlWhitespaceSensitivity === "css"
+      || htmlWhitespaceSensitivity === "strict"
+      || htmlWhitespaceSensitivity === "ignore")) {
     return;
   }
 
