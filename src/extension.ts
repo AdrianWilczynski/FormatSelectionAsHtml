@@ -33,10 +33,12 @@ async function formatSelectionAsHTML() {
 
   const selectedText = document.getText(selection);
 
-  const formattedText = prettier.format(selectedText, {
-    parser: "html",
-    htmlWhitespaceSensitivity: htmlWhitespaceSensitivity
-  });
+  const formattedText = prettier
+    .format(selectedText, {
+      parser: "html",
+      htmlWhitespaceSensitivity: htmlWhitespaceSensitivity
+    })
+    .replace(/[\r\n]+$/, "");
 
   await vscode.window.activeTextEditor.edit(builder => builder.replace(selection, formattedText));
 }
