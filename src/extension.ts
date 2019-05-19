@@ -5,7 +5,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(vscode.commands.registerCommand("extension.formatSelectionAsHtml", formatSelectionAsHTML));
 }
 
-export function deactivate() {}
+export function deactivate() { }
 
 async function formatSelectionAsHTML() {
   if (!vscode.window.activeTextEditor) {
@@ -16,8 +16,7 @@ async function formatSelectionAsHTML() {
     .getConfiguration()
     .get("formatSelectionAsHtml.htmlWhitespaceSensitivity");
 
-  if (
-    !htmlWhitespaceSensitivity ||
+  if (!htmlWhitespaceSensitivity ||
     typeof htmlWhitespaceSensitivity !== "string" ||
     !(
       htmlWhitespaceSensitivity === "css" ||
