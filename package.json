@@ -63,6 +63,10 @@
               "ignore"
             ],
             "default": "ignore"
+          },
+          "formatSelectionAsHtml.printWidth": {
+            "type": "integer",
+            "default": 120
           }
         }
       }

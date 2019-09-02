@@ -12,4 +12,4 @@ Use `Format Selection As HTML` command from context menu or Command Palette.
 
 ## Configuration
 
-Exposes Prettier's HTML Whitespace Sensitivity setting through `formatSelectionAsHtml.htmlWhitespaceSensitivity` property.
+Exposes Prettier's HTML Whitespace Sensitivity and Print Width settings through `formatSelectionAsHtml.htmlWhitespaceSensitivity` and `formatSelectionAsHtml.printWidth` properties.
