@@ -1,10 +1,10 @@
-import * as vscode from "vscode";
-import * as prettier from "prettier";
+import * as vscode from 'vscode';
+import * as prettier from 'prettier';
 import * as beautify from 'js-beautify';
-import { Configuration } from "./configuration";
+import { Configuration } from './configuration';
 
 export function activate(context: vscode.ExtensionContext) {
-  context.subscriptions.push(vscode.commands.registerCommand("extension.formatSelectionAsHtml", formatSelectionAsHTML));
+  context.subscriptions.push(vscode.commands.registerCommand('extension.formatSelectionAsHtml', formatSelectionAsHTML));
 }
 
 export function deactivate() { }
@@ -41,7 +41,7 @@ async function formatSelectionAsHTML() {
         useTabs: !insertSpaces,
         printWidth: configuration.printWidth
       })
-      .replace(/[\r\n]+$/, "");
+      .replace(/[\r\n]+$/, '');
   } else if (configuration.formatter === 'js-beautify') {
     formattedText = beautify.html(selectedText, {
       indent_size: tabSize,
