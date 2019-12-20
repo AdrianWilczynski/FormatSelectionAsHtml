@@ -26,8 +26,8 @@ async function formatSelectionAsHTML() {
     const document = vscode.window.activeTextEditor.document;
     const selection = vscode.window.activeTextEditor.selection;
 
-    let tabSize = vscode.window.activeTextEditor.options.tabSize as number;
-    let insertSpaces = vscode.window.activeTextEditor.options.insertSpaces as boolean;
+    const tabSize = vscode.window.activeTextEditor.options.tabSize as number;
+    const insertSpaces = vscode.window.activeTextEditor.options.insertSpaces as boolean;
 
     const selectedText = document.getText(selection);
 
