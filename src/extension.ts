@@ -34,16 +34,14 @@ async function formatSelectionAsHTML() {
     let formattedText: string;
 
     if (configuration.formatter === 'prettier') {
-        formattedText = prettier
-            .format(selectedText, {
-                parser: 'html',
-                plugins: [parser],
-                htmlWhitespaceSensitivity: configuration.htmlWhitespaceSensitivity,
-                tabWidth: tabSize,
-                useTabs: !insertSpaces,
-                printWidth: configuration.printWidth
-            })
-            .replace(/[\r\n]+$/, '');
+        formattedText = prettier.format(selectedText, {
+            parser: 'html',
+            plugins: [parser],
+            htmlWhitespaceSensitivity: configuration.htmlWhitespaceSensitivity,
+            tabWidth: tabSize,
+            useTabs: !insertSpaces,
+            printWidth: configuration.printWidth
+        }).replace(/[\r\n]+$/, '');
     } else if (configuration.formatter === 'js-beautify') {
         formattedText = beautify.html(selectedText, {
             indent_size: tabSize,
