@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
-import * as prettier from 'prettier';
+import * as prettier from 'prettier/standalone';
+import * as parser from 'prettier/parser-html';
 import * as beautify from 'js-beautify';
 import { Configuration } from './configuration';
 
@@ -36,6 +37,7 @@ async function formatSelectionAsHTML() {
     formattedText = prettier
       .format(selectedText, {
         parser: 'html',
+        plugins: [parser],
         htmlWhitespaceSensitivity: configuration.htmlWhitespaceSensitivity,
         tabWidth: tabSize,
         useTabs: !insertSpaces,
