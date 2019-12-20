@@ -1,5 +1,7 @@
 import * as vscode from "vscode";
 import * as prettier from "prettier";
+import * as beautify from 'js-beautify';
+import { Configuration } from "./configuration";
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(vscode.commands.registerCommand("extension.formatSelectionAsHtml", formatSelectionAsHTML));
@@ -12,40 +14,48 @@ async function formatSelectionAsHTML() {
     return;
   }
 
-  const configuration = vscode.workspace.getConfiguration();
+  const configuration = vscode.workspace.getConfiguration()
+    .get<Configuration>('formatSelectionAsHtml');
 
-  const htmlWhitespaceSensitivity = configuration.get("formatSelectionAsHtml.htmlWhitespaceSensitivity");
-  if (!htmlWhitespaceSensitivity
-    || typeof htmlWhitespaceSensitivity !== "string"
-    || !(htmlWhitespaceSensitivity === "css" || htmlWhitespaceSensitivity === "strict" || htmlWhitespaceSensitivity === "ignore")) {
-    return;
-  }
-
-  const printWidth = configuration.get("formatSelectionAsHtml.printWidth");
-  if (!printWidth
-    || typeof printWidth !== "number"
-    || !Number.isInteger(printWidth)
-    || printWidth <= 0) {
+  if (!isConfigurationValid(configuration)) {
+    vscode.window.showWarningMessage('Your "Format Selection As HTML" configuration is invalid.');
     return;
   }
 
   const document = vscode.window.activeTextEditor.document;
   const selection = vscode.window.activeTextEditor.selection;
 
-  const tabSize = vscode.window.activeTextEditor.options.tabSize;
-  const insertSpaces = vscode.window.activeTextEditor.options.insertSpaces;
+  let tabSize = vscode.window.activeTextEditor.options.tabSize as number;
+  let insertSpaces = vscode.window.activeTextEditor.options.insertSpaces as boolean;
 
   const selectedText = document.getText(selection);
 
-  const formattedText = prettier
-    .format(selectedText, {
-      parser: "html",
-      htmlWhitespaceSensitivity: htmlWhitespaceSensitivity,
-      tabWidth: typeof tabSize === "number" ? tabSize : 4,
-      useTabs: typeof insertSpaces === "boolean" ? !insertSpaces : false,
-      printWidth: printWidth
-    })
-    .replace(/[\r\n]+$/, "");
+  let formattedText: string;
+
+  if (configuration.formatter === 'prettier') {
+    formattedText = prettier
+      .format(selectedText, {
+        parser: 'html',
+        htmlWhitespaceSensitivity: configuration.htmlWhitespaceSensitivity,
+        tabWidth: tabSize,
+        useTabs: !insertSpaces,
+        printWidth: configuration.printWidth
+      })
+      .replace(/[\r\n]+$/, "");
+  } else if (configuration.formatter === 'js-beautify') {
+    formattedText = beautify.html(selectedText, {
+      indent_size: tabSize,
+      indent_with_tabs: !insertSpaces,
+      wrap_line_length: configuration.printWidth
+    });
+  }
 
   await vscode.window.activeTextEditor.edit(builder => builder.replace(selection, formattedText));
+}
+
+function isConfigurationValid(configuration?: Configuration): configuration is Configuration {
+  return !!configuration
+    && (configuration.formatter === 'prettier' || configuration.formatter === 'js-beautify')
+    && (configuration.htmlWhitespaceSensitivity === 'css' || configuration.htmlWhitespaceSensitivity === 'strict' || configuration.htmlWhitespaceSensitivity === 'ignore')
+    && (typeof configuration.printWidth === 'number' && Number.isInteger(configuration.printWidth) && configuration.printWidth >= 0);
 }
