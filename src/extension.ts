@@ -60,6 +60,6 @@ function isConfigurationValid(configuration?: Configuration): configuration is C
         && (configuration.formatter === 'prettier' || configuration.formatter === 'js-beautify')
         && (configuration.htmlWhitespaceSensitivity === 'css' || configuration.htmlWhitespaceSensitivity === 'strict' || configuration.htmlWhitespaceSensitivity === 'ignore')
         && typeof configuration.preserveNewlines === 'boolean'
-        && ((typeof configuration.maxPreserveNewlines === 'number' && configuration.maxPreserveNewlines >= 1) || configuration.maxPreserveNewlines === null)
+        && ((typeof configuration.maxPreserveNewlines === 'number' && Number.isInteger(configuration.maxPreserveNewlines) && configuration.maxPreserveNewlines >= 1) || configuration.maxPreserveNewlines === null)
         && (typeof configuration.printWidth === 'number' && Number.isInteger(configuration.printWidth) && configuration.printWidth >= 0);
 }
