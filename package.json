@@ -72,7 +72,21 @@
               "ignore"
             ],
             "default": "ignore",
-            "description": "Prettier's Whitespace Sensitivity setting."
+            "description": "Prettier Whitespace Sensitivity setting."
+          },
+          "formatSelectionAsHtml.preserveNewlines": {
+            "type": "boolean",
+            "default": true,
+            "description": "Beautify Preserve Newlines setting."
+          },
+          "formatSelectionAsHtml.maxPreserveNewlines": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "default": 1,
+            "minimum": 1,
+            "description": "Beautify Max Preserve Newlines setting."
           },
           "formatSelectionAsHtml.printWidth": {
             "type": "integer",

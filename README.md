@@ -13,5 +13,7 @@ Use `Format Selection As HTML` command from context menu or Command Palette.
 ## Configuration
 
 - `formatSelectionAsHtml.formatter` - formatter to use: `prettier` or `js-beautify`;
-- `formatSelectionAsHtml.htmlWhitespaceSensitivity` - Prettier's Whitespace Sensitivity setting.
+- `formatSelectionAsHtml.htmlWhitespaceSensitivity` - Prettier Whitespace Sensitivity setting.
+- `formatSelectionAsHtml.preserveNewlines` - Beautify Preserve Newlines setting.
+- `formatSelectionAsHtml.maxPreserveNewlines` - Beautify Max Preserve Newlines setting.
 - `formatSelectionAsHtml.printWidth` - maximum amount of characters per line.

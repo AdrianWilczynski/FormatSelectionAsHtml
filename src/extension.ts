@@ -46,6 +46,8 @@ async function formatSelectionAsHTML() {
         formattedText = beautify.html(selectedText, {
             indent_size: tabSize,
             indent_with_tabs: !insertSpaces,
+            preserve_newlines: configuration.preserveNewlines,
+            max_preserve_newlines: configuration.maxPreserveNewlines || undefined,
             wrap_line_length: configuration.printWidth
         });
     }
@@ -57,5 +59,7 @@ function isConfigurationValid(configuration?: Configuration): configuration is C
     return !!configuration
         && (configuration.formatter === 'prettier' || configuration.formatter === 'js-beautify')
         && (configuration.htmlWhitespaceSensitivity === 'css' || configuration.htmlWhitespaceSensitivity === 'strict' || configuration.htmlWhitespaceSensitivity === 'ignore')
+        && typeof configuration.preserveNewlines === 'boolean'
+        && ((typeof configuration.maxPreserveNewlines === 'number' && configuration.maxPreserveNewlines >= 1) || configuration.maxPreserveNewlines === null)
         && (typeof configuration.printWidth === 'number' && Number.isInteger(configuration.printWidth) && configuration.printWidth >= 0);
 }
