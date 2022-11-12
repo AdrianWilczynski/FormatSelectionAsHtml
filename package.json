@@ -114,7 +114,7 @@
     "typescript": "^3.3.1",
     "vscode": "^1.1.28",
     "webpack": "^4.41.4",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
     "js-beautify": "^1.10.2",
